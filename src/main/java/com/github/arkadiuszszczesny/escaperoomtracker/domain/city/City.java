@@ -1,6 +1,7 @@
 package com.github.arkadiuszszczesny.escaperoomtracker.domain.city;
 
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.voivodeship.Voivodeship;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.persistence.BaseUUIDEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,7 @@ import java.util.UUID;
 @Table(name = "cities")
 @Data
 @NoArgsConstructor
-public class City {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class City extends BaseUUIDEntity {
 
     @Column(nullable = false)
     private String name;

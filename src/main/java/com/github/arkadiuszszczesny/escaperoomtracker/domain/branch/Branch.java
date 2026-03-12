@@ -2,20 +2,21 @@ package com.github.arkadiuszszczesny.escaperoomtracker.domain.branch;
 
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.city.City;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.company.Company;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.persistence.BaseUUIDEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.UUID;
 
 @Entity
 @Table(name = "branches")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
-public class Branch {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Branch extends BaseUUIDEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", nullable = false)

@@ -6,9 +6,12 @@ import com.github.arkadiuszszczesny.escaperoomtracker.domain.city.City;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.city.CityRepository;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.company.Company;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.company.CompanyRepository;
+import com.github.arkadiuszszczesny.escaperoomtracker.domain.room.dto.EscapeRoomResponse;
 import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.exception.AlreadyExistsException;
 import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -2,6 +2,7 @@ package com.github.arkadiuszszczesny.escaperoomtracker.domain.visit;
 
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.room.EscapeRoom;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.user.User;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.persistence.BaseUUIDEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,7 @@ import java.util.UUID;
 @Table(name = "visits")
 @Data
 @NoArgsConstructor
-public class Visit {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Visit extends BaseUUIDEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

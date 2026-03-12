@@ -4,6 +4,8 @@ import com.github.arkadiuszszczesny.escaperoomtracker.domain.city.dto.CityRespon
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.city.dto.CreateCityRequest;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.voivodeship.Voivodeship;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.voivodeship.VoivodeshipRepository;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.exception.AlreadyExistsException;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.exception.BusinessException;
 import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,11 @@ public class CityService {
     }
     @Transactional
     public CityResponse create(CreateCityRequest request) {
+
+        if(cityRepository.existsByNameAndVoivodeshipId(request.name(), request.voivodeshipId())) {
+            throw new AlreadyExistsException("City for this voivodeship already exists");
+        }
+
         Voivodeship voivodeship = voivodeshipRepository.findById(request.voivodeshipId())
                 .orElseThrow(() -> new NotFoundException("Voivodeship not found"));
 

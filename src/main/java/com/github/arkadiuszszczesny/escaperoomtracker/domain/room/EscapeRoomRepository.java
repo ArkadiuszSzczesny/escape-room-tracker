@@ -12,4 +12,5 @@ public interface EscapeRoomRepository extends JpaRepository<EscapeRoom, UUID> {
     Page<EscapeRoom> findByBranch_City_Voivodeship_Id(UUID voivodeshipId, Pageable pageable);
     Page<EscapeRoom> findByDifficulty(Short difficulty, Pageable pageable);
     Page<EscapeRoom> findByGenres_Name(String genreName, Pageable pageable);
+    boolean existsByBranchIdAndName(UUID branchId, String name);
 }
