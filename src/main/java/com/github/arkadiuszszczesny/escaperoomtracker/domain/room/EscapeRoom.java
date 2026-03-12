@@ -2,6 +2,7 @@ package com.github.arkadiuszszczesny.escaperoomtracker.domain.room;
 
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.branch.Branch;
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.genre.Genre;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.persistence.BaseUUIDEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,7 @@ import java.util.UUID;
 @Table(name = "escape_rooms")
 @Data
 @NoArgsConstructor
-public class EscapeRoom {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class EscapeRoom extends BaseUUIDEntity {
 
     @Column(nullable = false)
     private String name;

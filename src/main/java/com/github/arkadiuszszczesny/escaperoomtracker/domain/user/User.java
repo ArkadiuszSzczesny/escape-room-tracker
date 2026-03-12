@@ -1,6 +1,7 @@
 package com.github.arkadiuszszczesny.escaperoomtracker.domain.user;
 
 import com.github.arkadiuszszczesny.escaperoomtracker.domain.role.Role;
+import com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.persistence.BaseUUIDEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,11 +11,7 @@ import java.util.UUID;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class User extends BaseUUIDEntity {
 
     @Column(nullable = false, unique = true)
     private String username;

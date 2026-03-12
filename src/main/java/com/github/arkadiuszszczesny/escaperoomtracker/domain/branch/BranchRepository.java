@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface BranchRepository extends JpaRepository<Branch, UUID> {
     List<Branch> findByCompanyId(UUID companyId);
     List<Branch> findByCityId(UUID cityId);
+    boolean existsByCompanyIdAndAddress(UUID companyId, String address);
 }
