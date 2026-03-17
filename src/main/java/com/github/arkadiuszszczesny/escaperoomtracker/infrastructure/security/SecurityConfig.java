@@ -29,24 +29,26 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers( "/swagger-ui/**",
-                                "/swagger-ui.html",
-                                "/api-docs/**",
-                                "/v3/api-docs/**",
-                                "/webjars/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/api-docs/**", "/v3/api-docs/**", "/webjars/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/rooms/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/genres/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/voivodeships/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/cities/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/companies/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/branches/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/stats/rooms/**").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/api/users/me").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/stats/me").authenticated()
+
+                        .requestMatchers(HttpMethod.POST, "/api/rooms/**").hasAnyAuthority("ROLE_MODERATOR", "ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/companies/**").hasAnyAuthority("ROLE_MODERATOR", "ROLE_ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/branches/**").hasAnyAuthority("ROLE_MODERATOR", "ROLE_ADMIN")
 
                         .requestMatchers(HttpMethod.DELETE, "/api/rooms/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/companies/**").hasAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/branches/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/rooms/**").hasAnyAuthority("ROLE_MODERATOR", "ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/companies/**").hasAnyAuthority("ROLE_MODERATOR", "ROLE_ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/api/branches/**").hasAnyAuthority("ROLE_MODERATOR", "ROLE_ADMIN")
+                        .requestMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
 
                         .anyRequest().authenticated()
                 )
