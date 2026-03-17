@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,31 +19,20 @@ public class VisitController {
 
     private final VisitService visitService;
 
-    // Tymczasowo userId jako header — do zastapienia JWT
     @GetMapping("/my")
     public Page<VisitResponse> getMyVisits(
-            @RequestHeader("X-User-Id") UUID userId,
+            Authentication authentication,
             Pageable pageable) {
+        UUID userId = (UUID) authentication.getPrincipal();
         return visitService.getMyVisits(userId, pageable);
-    }
-
-    @GetMapping("/{id}")
-    public VisitResponse getById(@PathVariable UUID id) {
-        return visitService.getById(id);
-    }
-
-    @GetMapping("/by-room/{escapeRoomId}")
-    public Page<VisitResponse> getByRoom(
-            @PathVariable UUID escapeRoomId,
-            Pageable pageable) {
-        return visitService.getByRoom(escapeRoomId, pageable);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VisitResponse create(
-            @RequestHeader("X-User-Id") UUID userId,
+            Authentication authentication,
             @RequestBody @Valid CreateVisitRequest request) {
+        UUID userId = (UUID) authentication.getPrincipal();
         return visitService.create(userId, request);
     }
 
@@ -50,7 +40,8 @@ public class VisitController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
             @PathVariable UUID id,
-            @RequestHeader("X-User-Id") UUID userId) {
+            Authentication authentication) {
+        UUID userId = (UUID) authentication.getPrincipal();
         visitService.delete(id, userId);
     }
 }
