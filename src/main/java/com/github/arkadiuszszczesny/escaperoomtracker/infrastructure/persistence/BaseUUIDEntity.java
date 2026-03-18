@@ -1,6 +1,5 @@
 package com.github.arkadiuszszczesny.escaperoomtracker.infrastructure.persistence;
 
-import com.fasterxml.uuid.Generators;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -23,7 +22,7 @@ public abstract class BaseUUIDEntity {
     protected void onCreate() {
         if (this.id == null) {
 
-            this.id = Generators.timeBasedEpochGenerator().generate();
+            this.id = UUID.randomUUID();
         }
     }
 }
