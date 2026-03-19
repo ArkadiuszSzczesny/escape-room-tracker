@@ -6,7 +6,7 @@ CREATE TABLE voivodeships (
 CREATE TABLE cities (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(100) NOT NULL,
-    voivodeships_id UUID NOT NULL REFERENCES voivodeships(id)
+    voivodeship_id UUID NOT NULL REFERENCES voivodeships(id)
 );
 
 CREATE TABLE companies (
@@ -40,7 +40,7 @@ CREATE TABLE genres (
     name VARCHAR(100) NOT NULL UNIQUE
 );
 
-CREATE TABLE escape_room (
+CREATE TABLE escape_rooms (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name VARCHAR(255) NOT NULL,
     description TEXT,
@@ -50,7 +50,7 @@ CREATE TABLE escape_room (
 );
 
 CREATE TABLE escape_room_genres (
-    escape_room_id UUID NOT NULL REFERENCES escape_room(id),
+    escape_room_id UUID NOT NULL REFERENCES escape_rooms(id),
     genre_id UUID NOT NULL REFERENCES genres(id),
     PRIMARY KEY (escape_room_id, genre_id)
 );
@@ -58,7 +58,7 @@ CREATE TABLE escape_room_genres (
 CREATE TABLE visits (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL REFERENCES users(id),
-    escape_room_id UUID NOT NULL REFERENCES escape_room(id),
+    escape_room_id UUID NOT NULL REFERENCES escape_rooms(id),
     played_at DATE NOT NULL,
     is_escaped BOOLEAN NOT NULL,
     escape_time_sec INT
